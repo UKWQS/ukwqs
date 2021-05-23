@@ -1,0 +1,5 @@
+- 👋 Hi, I’m UKWQS
+- 👀 I’m interested in script and cheat developing.
+- 🌱 I’m currently learning C++.
+- 💞️ I’m looking to collaborate on a script hub.
+- 📫 You can reach me via discord: UKWQS#0001.
