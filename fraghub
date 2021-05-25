@@ -1,0 +1,668 @@
+if game.PlaceId == 2788229376 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Frag Hub - Da Hood", "Synapse")
+game:GetService("StarterGui"):SetCore("SendNotification",{
+            Title    = "Frag Hub",
+            Text     = "Join the discord: https://discord.gg/mDFErd7kw4",
+            Icon     = "http://www.roblox.com/asset/?id=145360599",
+            Duration = 10,
+            })
+ 
+ -- MAIN
+
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+
+    MainSection:NewButton("Autofarm", "Autofarms cash for you.", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/rapnz/scripts/master/DaHoodFarm.lua"))()
+end)
+
+    MainSection:NewButton("ESP", "ESP.", function()
+    local lplr = game.Players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local CurrentCamera = workspace.CurrentCamera
+local worldToViewportPoint = CurrentCamera.worldToViewportPoint
+
+local HeadOff = Vector3.new(0, 0.5, 0)
+local LegOff = Vector3.new(0,3,0)
+
+for i,v in pairs(game.Players:GetChildren()) do
+    local BoxOutline = Drawing.new("Square")
+    BoxOutline.Visible = false
+    BoxOutline.Color = Color3.new(0,0,0)
+    BoxOutline.Thickness = 3
+    BoxOutline.Transparency = 1
+    BoxOutline.Filled = false
+
+    local Box = Drawing.new("Square")
+    Box.Visible = false
+    Box.Color = Color3.new(1,1,1)
+    Box.Thickness = 1
+    Box.Transparency = 1
+    Box.Filled = false
+
+    function boxesp()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+                local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+                local RootPart = v.Character.HumanoidRootPart
+                local Head = v.Character.Head
+                local RootPosition, RootVis = worldToViewportPoint(CurrentCamera, RootPart.Position)
+                local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff)
+                local LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - LegOff)
+
+                if onScreen then
+                    BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+                    BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
+                    BoxOutline.Visible = true
+
+                    Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+                    Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
+                    Box.Visible = true
+
+                    if v.TeamColor == lplr.TeamColor then
+                        BoxOutline.Visible = false
+                        Box.Visible = false
+                    else
+                        BoxOutline.Visible = true
+                        Box.Visible = true
+                    end
+
+                else
+                    BoxOutline.Visible = false
+                    Box.Visible = false
+                end
+            else
+                BoxOutline.Visible = false
+                Box.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(boxesp)()
+end
+
+game.Players.PlayerAdded:Connect(function(v)
+    local BoxOutline = Drawing.new("Square")
+    BoxOutline.Visible = false
+    BoxOutline.Color = Color3.new(0,0,0)
+    BoxOutline.Thickness = 3
+    BoxOutline.Transparency = 1
+    BoxOutline.Filled = false
+
+    local Box = Drawing.new("Square")
+    Box.Visible = false
+    Box.Color = Color3.new(1,1,1)
+    Box.Thickness = 1
+    Box.Transparency = 1
+    Box.Filled = false
+
+    function boxesp()
+        game:GetService("RunService").RenderStepped:Connect(function()
+            if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+                local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+                local RootPart = v.Character.HumanoidRootPart
+                local Head = v.Character.Head
+                local RootPosition, RootVis = worldToViewportPoint(CurrentCamera, RootPart.Position)
+                local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff)
+                local LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - LegOff)
+
+                if onScreen then
+                    BoxOutline.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+                    BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
+                    BoxOutline.Visible = true
+
+                    Box.Size = Vector2.new(1000 / RootPosition.Z, HeadPosition.Y - LegPosition.Y)
+                    Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
+                    Box.Visible = true
+
+                    if v.TeamColor == lplr.TeamColor then
+                        BoxOutline.Visible = false
+                        Box.Visible = false
+                    else
+                        BoxOutline.Visible = true
+                        Box.Visible = true
+                    end
+
+                else
+                    BoxOutline.Visible = false
+                    Box.Visible = false
+                end
+            else
+                BoxOutline.Visible = false
+                Box.Visible = false
+            end
+        end)
+    end
+    coroutine.wrap(boxesp)()
+end)
+
+end)
+
+MainSection:NewButton("Unban", "Unbans the user.", function()
+    local localPlayer = game:GetService('Players').LocalPlayer;
+local localCharacter = localPlayer.Character;
+localCharacter:FindFirstChildOfClass('Humanoid').Health = 0;
+localCharacter:ClearAllChildren()
+local newCharacter = localPlayer.CharacterAdded:Wait();
+local spoofFolder = Instance.new('Folder');
+spoofFolder.Name = 'FULLY_LOADED_CHAR';
+spoofFolder.Parent = newCharacter;
+newCharacter:WaitForChild('BodyEffects').Dead:Destroy();
+local spoofValue = Instance.new('BoolValue', newCharacter.BodyEffects);
+spoofValue.Name = 'Dead'; 
+end)
+
+
+MainSection:NewButton("God Block", "God Block", function()
+    loadstring(game:HttpGet(('https://pastebin.com/raw/8dYyXr7n'),true))()
+end)
+
+
+--TELEPORTS
+
+    local Teleports = Window:NewTab("Teleports")
+    local TeleportsSection = Teleports:NewSection("Teleports")
+
+        TeleportsSection:NewButton("Bank", "Bank Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-485.668, 23.631, -285.169)
+end)
+
+
+        TeleportsSection:NewButton("Hood Kicks", "Hood Kicks Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-195.87355, 38.9532356, -410.253052, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+
+
+        TeleportsSection:NewButton("Fire Department", "Fire Department Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-128.706131, 21.2780037, -135.0271, -0.999882162, -7.87665133e-09, -0.0153731685, -8.00173705e-09, 1, 8.07525158e-09, 0.0153731685, 8.19731127e-09, -0.999882162)
+end)
+
+
+        TeleportsSection:NewButton("Klipz", "Klipz Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-128.706131, 21.2780037, -135.0271, -0.999882162, -7.87665133e-09, -0.0153731685, -8.00173705e-09, 1, 8.07525158e-09, 0.0153731685, 8.19731127e-09, -0.999882162)
+end)
+
+
+        TeleportsSection:NewButton("Gas Station", "Gas Station Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(531.125244, 47.7780037, -252.459824, 0.190130785, -0.00120760081, -0.981758177, -0.000790004851, 0.999998748, -0.00138303195, 0.981758475, 0.0010385511, 0.190129682)
+end)
+
+
+        TeleportsSection:NewButton("Taco Shop", "Taco Shop Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(533.864197, 51.0594139, -493.949921, 0.0402209237, 8.08169087e-09, -0.999190927, -2.00259342e-09, 1, 8.00762567e-09, 0.999190927, 1.67889924e-09, 0.0402209237)
+end)
+
+
+        TeleportsSection:NewButton("Tyrone's Gunz 1", "Tyrone's Gunz 1 Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(480.815308, 48.003006, -605.92041, 0.999285758, -4.83542495e-09, -0.0377886295, 2.77849632e-09, 1, -5.4484989e-08, 0.0377886295, 5.43410756e-08, 0.999285758)
+end)
+
+
+        TeleportsSection:NewButton("Tyrone's Gunz 2", "Tyrone's Gunz 2 Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-563.790955, 7.99785137, -735.716858, 0.0363639817, -1.19439676e-07, 0.999338627, 2.86968316e-08, 1, 1.18474503e-07, -0.999338627, 2.43696476e-08, 0.0363639817)
+end)
+
+
+        TeleportsSection:NewButton("Playground", "Playground Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-175.994553, 21.2529964, -767.987061, -0.456993073, -7.15255624e-08, 0.889470279, -5.13072322e-08, 1, 5.40529754e-08, -0.889470279, -2.0934424e-08, -0.456993073)
+end)
+
+
+TeleportsSection:NewButton("Phone Store", "Phone Store Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-142.133423, 21.753006, -870.277344, 0.0249469411, -2.10818556e-07, -0.999688745, -5.04014892e-08, 0.99999994, -2.12141956e-07, 0.999688745, 5.56780719e-08, 0.0249469411)
+end)
+
+
+TeleportsSection:NewButton("Hospital", "Hospital Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(80.2097092, 21.753006, -484.807404, 0.025097128, 3.23782565e-08, -0.999684989, 1.78914472e-09, 1, 3.24333769e-08, 0.999684989, -2.60256572e-09, 0.025097128)
+end)
+
+
+TeleportsSection:NewButton("Jewelry Store", "Jewelry Store Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-605.220459, 21.7480049, -260.590332, -0.0087726349, 7.91263375e-08, 0.999961376, 6.29158663e-08, 1, -7.8577429e-08, -0.999961376, 6.22241174e-08, -0.0087726349)
+end)
+
+
+TeleportsSection:NewButton("Da Furniture", "Da Furniture Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-489.98172, 21.7480049, -127.298592, -0.99999243, 3.88724111e-08, 0.00388053479, 3.86575785e-08, 1, -5.54364519e-08, -0.00388053479, -5.528603e-08, -0.99999243)
+end)
+
+
+TeleportsSection:NewButton("Park", "Park Teleport.", function()
+	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(360.124664, 48.4980049, -536.668579, -0.999746561, 3.15388782e-08, -0.0225177724, 3.35848824e-08, 1, -9.04840007e-08, 0.0225177724, -9.12173448e-08, -0.999746561)
+end)
+
+
+TeleportsSection:NewButton("Toilets", "Toilets Teleport.", function()
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(377.701263, 48.4980049, -348.666199, -0.965513766, 0.0110509731, -0.260117412, 0.00755544845, 0.99986726, 0.0144343181, 0.260242403, 0.0119712288, -0.965469122)
+end)
+
+
+TeleportsSection:NewButton("Church", "Church Teleport.", function()
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206.641083, 21.75, -121.227928)
+end)
+
+
+TeleportsSection:NewButton("Graveyard", "Graveyard Teleport.", function()
+game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(158.02771, 21.7480049, 8.82411003, -0.999871194, 2.38806486e-08, -0.0160487648, 2.38671252e-08, 1, 1.03414932e-09, 0.0160487648, 6.50978216e-10, -0.999871194)
+end)
+
+
+TeleportsSection:NewButton("Sewers", "Sewers Teleport.", function()
+game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-59.8313522, 21.7537193, -479.62326, -0.999839604, 3.72687126e-09, 0.0179067552, 4.71031614e-09, 1, 5.48781394e-08, -0.0179067552, 5.49536878e-08, -0.999839604)
+end)
+
+
+TeleportsSection:NewButton("Da Theatre", "Da Theatre Teleport.", function()
+game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1005.90674, 24.5980186, -159.766754, -0.999994099, -5.07836528e-09, -0.00344302645, -5.01063413e-09, 1, -1.96805754e-08, 0.00344302645, -1.96632062e-08, -0.999994099)
+end)
+
+
+TeleportsSection:NewButton("Da Casino", "Da Casino Teleport.", function()
+game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-904.661011, 21.7480049, -167.946274, -0.999738395, -7.38538075e-09, -0.0228715204, -6.80786094e-09, 1, -2.53284789e-08, 0.0228715204, -2.51661483e-08, -0.999738395)
+end)
+
+-- ANIMATIONS
+
+    local Animations = Window:NewTab("Animations")
+    local AnimationsSection = Animations:NewSection("Animations")
+
+   AnimationsSection:NewButton("Zombie", "Zombie Animation.", function()
+        local Animate = game.Players.LocalPlayer.Character.Animate
+        Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616158929"
+        Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616160636"
+        Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616168032"
+        Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616163682"
+        Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616161997"
+        Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616156119"
+        Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616157476"
+        game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+       AnimationsSection:NewButton("Werewolf", "Werewolf Animation.", function()
+        local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083195517"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083214717"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083178339"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083216690"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083218792"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083182000"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083189019"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+           AnimationsSection:NewButton("Vampire", "Vampire Animation.", function()
+        local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+    
+
+               AnimationsSection:NewButton("Toy", "Toy Animation.", function()
+        local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=782845736"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=782843345"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=782842708"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=782847020"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=782843869"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=782846423"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                   AnimationsSection:NewButton("Superhero", "Superhero Animation.", function()
+ local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616111295"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616113536"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616122287"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616117076"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616115533"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616104706"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616108001"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                       AnimationsSection:NewButton("Stylish", "Stylish Animation.", function()
+ local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616136790"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616138447"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616146177"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616140816"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616139451"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616133594"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616134815"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                           AnimationsSection:NewButton("Robot", "Robot Animation.", function()
+ local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616088211"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616089559"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616095330"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616091570"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616090535"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616086039"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616087089"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+    
+
+                               AnimationsSection:NewButton("Pirate", "Pirate Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                   AnimationsSection:NewButton("Ninja", "Ninja Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=656117400"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=656118341"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=656121766"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=656118852"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=656117878"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=656114359"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=656115606"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                       AnimationsSection:NewButton("Mage", "Mage Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=707742142"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=707855907"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=707897309"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=707861613"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=707853694"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=707826056"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                           AnimationsSection:NewButton("Knight", "Knight Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                               AnimationsSection:NewButton("Elder", "Elder Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=845397899"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=845400520"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=845403856"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=845386501"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=845398858"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=845392038"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=845396048"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                                   AnimationsSection:NewButton("Cartoony", "Cartoony Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=742637544"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=742638445"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=742640026"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=742638842"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=742637942"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=742636889"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=742637151"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                                       AnimationsSection:NewButton("Bubbly", "Bubbly Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=910004836"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=910009958"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=910034870"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=910025107"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=910016857"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=910001910"
+			Animate.swimidle.SwimIdle.AnimationId = "http://www.roblox.com/asset/?id=910030921"
+			Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=910028158"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+
+                                                           AnimationsSection:NewButton("Astronaut", "Astronaut Animation.", function()
+local Animate = game.Players.LocalPlayer.Character.Animate
+			Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=891621366"
+			Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=891633237"
+			Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=891667138"
+			Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=891636393"
+			Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=891627522"
+			Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=891609353"
+			Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=891617961"
+			game.Players.LocalPlayer.Character.Humanoid.Jump = true
+    end)
+
+    --PLAYER 
+
+        local Player = Window:NewTab("Player")
+    local PlayerSection = Player:NewSection("Player")
+
+    PlayerSection:NewSlider("WalkSpeed", "Walkspeed.", 250, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+
+    PlayerSection:NewSlider("JumpPower", "Jumppower.", 250, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+
+PlayerSection:NewButton("Jewelry Store", "Jewelry Store Teleport.", function()
+	loadstring(game:HttpGet(('https://pastebin.com/raw/b0kwzrUX'),true))() 
+end)
+elseif game.PlaceId == 2041312716 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Frag Hub - Ragdoll Engine", "Synapse")
+ 
+     -- MAIN
+
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+    
+    MainSection:NewButton("Free Push", "Gives you the push gamepass for free.", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/VpQyH1jS"))()
+end)
+
+    MainSection:NewButton("Mega Push", "Gives you a really strong push.", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/pZjUrHRY"))()
+end)
+
+    MainSection:NewButton("Free Bomb", "Gives you the bomb gamepass for free.", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/WVC4NTt4"))()
+end)
+
+-- PLAYER
+
+    local Player = Window:NewTab("Player")
+    local PlayerSection = Player:NewSection("Player")
+
+    PlayerSection:NewSlider("WalkSpeed", "Makes you run faster.", 250, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+    PlayerSection:NewSlider("JumpPower", "Makes you jump higher.", 500, 10, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+    PlayerSection:NewButton("Fly (X)", "Makes you fly. Press X to disable.", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/b0kwzrUX"))()
+end)
+
+    PlayerSection:NewButton("Noclip (E)", "Makes you noclip. Press E to enable/disable.", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/aH7AFwGq"))()
+end)
+elseif game.PlaceId == 286090429 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Frag Hub - Arsenal", "Synapse")
+
+-- MAIN
+local Main = Window:NewTab("Main")
+local MainSection = Main:NewSection("Main")
+MainSection:NewButton("Tracers", "Tracing ESP.", function()
+loadstring(game:HttpGet(('https://pastebin.com/raw/QsJCYjUu'),true))() 
+end)
+
+MainSection:NewButton("Boxes", "Box ESP.", function()
+loadstring(game:HttpGet(('https://pastebin.com/raw/2ReALWBR'),true))() 
+end)
+
+MainSection:NewButton("Aimbot + FOV Circle", "Ah yes, 2 in one.", function()
+loadstring(game:HttpGet(('https://pastebin.com/raw/aWkc4TVj'),true))() 
+end)
+
+-- PLAYER
+local Player = Window:NewTab("Player")
+local PlayerSection = Player:NewSection("Player")
+PlayerSection:NewSlider("Walkspeed", "Sets the users walkspeed.", 250, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+PlayerSection:NewSlider("JumpPower", "Sets the users jump power.", 250, 50, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+elseif game.PlaceId == 3956818381 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Frag Hub - Ninja Legends", "Synapse")
+ 
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+ 
+    MainSection:NewToggle("Auto-Swing", "Make your player auto-swing.", function(v)
+        getgenv().autoswing = v
+        while true do
+            if not getgenv().autoswing then return end
+            for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v:FindFirstChild("ninjitsuGain") then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    break
+                end
+            end
+            local A_1 = "swingKatana"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSection:NewToggle("Auto-Sell", "Makes your player auto-sell.", function(v)
+        getgenv().autosell = v
+        while true do
+            if getgenv().autoswing == false then return end
+            game:GetService("Workspace").sellAreaCircles["sellAreaCircle16"].circleInner.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            wait(0.1)
+            game:GetService("Workspace").sellAreaCircles["sellAreaCircle16"].circleInner.CFrame = CFrame.new(0,0,0)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSection:NewButton("Unlock All Islands", "Unlocks all islands.", function()
+        local oldcframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        for _,v in pairs(game:GetService("Workspace").islandUnlockParts:GetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+            wait(0.1)
+        end
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcframe
+    end)
+ 
+    MainSection:NewToggle("Auto-Buy All Swords", "Auto-buys all swords.", function(v)
+        getgenv().buyswords = v
+        while true do
+            if not getgenv().buyswords then return end
+            local A_1 = "buyAllSwords"
+            local A_2 = "Inner Peace Island"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+ 
+    MainSection:NewToggle("Auto-Buy All Belts", "Auto-buys all belts", function(v)
+        getgenv().buybelts = v
+        while true do
+            if not getgenv().buybelts then return end
+            local A_1 = "buyAllBelts"
+            local A_2 = "Inner Peace Island"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+elseif game.PlaceId == 155615604 then
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Frag Hub - Prison Life", "Synapse")
+
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+
+    MainSection:NewDropdown("Give Gun", "Gives the localplayer a gun.", {"M9", "Remington 870", "AK-47"}, function(v)
+        local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver[v].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+    end)
+
+    MainSection:NewDropdown("Gun Mod", "Mods the localplayers gun.", {"M9", "Remington 870", "AK-47"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["MaxAmmo"] = math.huge
+            module["CurrentAmmo"] = math.huge
+            module["StoredAmmo"] = math.huge
+            module["FireRate"] = 0.000001
+            module["Spread"] = 0
+            module["Range"] = math.huge
+            module["Bullets"] = 10
+            module["ReloadTime"] = 0.000001
+            module["AutoFire"] = true
+        end
+    end)
+
+    -- PLAYER
+    local Player = Window:NewTab("Player")
+    local PlayerSection = Player:NewSection("Player")
+
+    PlayerSection:NewSlider("Walkspeed", "Changes the players walkspeed.", 250, 16, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+
+    PlayerSection:NewSlider("Jump Power", "Changes the users jump power.", 250, 50, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)
+end
